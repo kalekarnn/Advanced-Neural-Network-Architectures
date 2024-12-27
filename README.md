@@ -38,6 +38,46 @@ The model follows a C1C2C3C40 architecture with the following components:
 - Total Parameters: ~200k
 - Final Receptive Field: 45x45
 
+```
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1           [-1, 24, 32, 32]             672
+       BatchNorm2d-2           [-1, 24, 32, 32]              48
+              ReLU-3           [-1, 24, 32, 32]               0
+           Dropout-4           [-1, 24, 32, 32]               0
+            Conv2d-5           [-1, 24, 16, 16]             240
+            Conv2d-6           [-1, 48, 16, 16]           1,200
+DepthwiseSeparableConv-7           [-1, 48, 16, 16]               0
+       BatchNorm2d-8           [-1, 48, 16, 16]              96
+              ReLU-9           [-1, 48, 16, 16]               0
+          Dropout-10           [-1, 48, 16, 16]               0
+           Conv2d-11           [-1, 84, 16, 16]          36,372
+      BatchNorm2d-12           [-1, 84, 16, 16]             168
+             ReLU-13           [-1, 84, 16, 16]               0
+          Dropout-14           [-1, 84, 16, 16]               0
+           Conv2d-15             [-1, 84, 8, 8]          63,588
+      BatchNorm2d-16             [-1, 84, 8, 8]             168
+             ReLU-17             [-1, 84, 8, 8]               0
+          Dropout-18             [-1, 84, 8, 8]               0
+           Conv2d-19            [-1, 128, 4, 4]          96,896
+      BatchNorm2d-20            [-1, 128, 4, 4]             256
+             ReLU-21            [-1, 128, 4, 4]               0
+          Dropout-22            [-1, 128, 4, 4]               0
+AdaptiveAvgPool2d-23            [-1, 128, 1, 1]               0
+           Conv2d-24             [-1, 10, 1, 1]           1,290
+================================================================
+Total params: 200,994
+Trainable params: 200,994
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.01
+Forward/backward pass size (MB): 2.15
+Params size (MB): 0.77
+Estimated Total Size (MB): 2.93
+----------------------------------------------------------------
+```
+
 ## Image Augmentation Techniques
 
 Using Albumentations library with the following transforms:
