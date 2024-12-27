@@ -68,10 +68,9 @@ def train(model, device, train_loader, optimizer, epoch):
         processed += len(data)
 
         pbar.set_description(desc= f'Loss={loss.item():.4f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
-        train_acc.append(100*correct/processed)
-
+    
+    train_acc.append(100*correct/processed)
     return 100*correct/processed
-
 
 def test(model, device, test_loader):
     model.eval()
@@ -84,6 +83,7 @@ def test(model, device, test_loader):
             test_loss += F.nll_loss(output, target, reduction='sum').item()
             pred = output.argmax(dim=1, keepdim=True)
             correct += pred.eq(target.view_as(pred)).sum().item()
+
     test_loss /= len(test_loader.dataset)
     test_losses.append(test_loss)
 
@@ -103,6 +103,9 @@ def main():
     # Create directory for sample images
     if not os.path.exists('sample_images'):
         os.makedirs('sample_images')
+    
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
     
     # First get data without transforms
     print("\nSaving original images...")
@@ -137,30 +140,31 @@ def main():
 
     model = CIFAR10Net().to(device)
     summary(model, input_size=(3, 32, 32))
-
+    
     device = torch.device("mps") if torch.backends.mps.is_available() else "cpu"
     model = CIFAR10Net().to(device)
     
     BATCH_SIZE = 128
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
-    train_loader, test_loader = get_data_loaders(BATCH_SIZE, False)
+    train_loader, test_loader = get_data_loaders(BATCH_SIZE)
 
     best_train_acc = 0
     best_test_acc = 0
     best_test_epoch = 0
     total_params = sum(p.numel() for p in model.parameters())
     
-    EPOCHS = 20
+    EPOCHS = 10
     for epoch in range(EPOCHS):
         print(f"\nEPOCH: {epoch+1}")
         train_accuracy = train(model, device, train_loader, optimizer, epoch)
         test_loss, test_accuracy = test(model, device, test_loader)
-        
+             
         # Update best accuracies
         best_train_acc = max(best_train_acc, train_accuracy)
         if test_accuracy > best_test_acc:
             best_test_acc = test_accuracy
             best_test_epoch = epoch + 1
+            torch.save(model.state_dict(), 'best_model.pth')
 
     # Print final summary
     print_summary(

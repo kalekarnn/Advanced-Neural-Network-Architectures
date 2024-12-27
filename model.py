@@ -38,19 +38,19 @@ class CIFAR10Net(nn.Module):
         
         # Third Block (C3) with Dilated Conv - RF: 15
         self.conv3 = nn.Sequential(
-            nn.Conv2d(48, 96, kernel_size=3, padding=2, dilation=2),
-            nn.BatchNorm2d(96),
+            nn.Conv2d(48, 84, kernel_size=3, padding=2, dilation=2),
+            nn.BatchNorm2d(84),
             nn.ReLU(),
             nn.Dropout(0.03),
-            nn.Conv2d(96, 96, kernel_size=3, stride=2, padding=1),
-            nn.BatchNorm2d(96),
+            nn.Conv2d(84, 84, kernel_size=3, stride=2, padding=1),
+            nn.BatchNorm2d(84),
             nn.ReLU(),
             nn.Dropout(0.03)
         )
         
         # Fourth Block (C4) - RF: 45
         self.conv4 = nn.Sequential(
-            nn.Conv2d(96, 128, kernel_size=3, stride=2, padding=1),
+            nn.Conv2d(84, 128, kernel_size=3, stride=2, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.Dropout(0.03)
