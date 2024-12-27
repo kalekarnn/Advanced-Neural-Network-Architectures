@@ -74,7 +74,7 @@ Using Albumentations library with the following transforms:
 
 | Metric               | Value   |
 |----------------------|---------|
-| Total Parameters     | 201.0k  |
+| Total Parameters     | 200.9k  |
 | Best Test Accuracy   | 85.32%  |
 | Final Train Accuracy | 81.49%  |
 | Final Test Accuracy  | 85.32%  |
