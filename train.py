@@ -153,7 +153,7 @@ def main():
     best_test_epoch = 0
     total_params = sum(p.numel() for p in model.parameters())
     
-    EPOCHS = 10
+    EPOCHS = 125
     for epoch in range(EPOCHS):
         print(f"\nEPOCH: {epoch+1}")
         train_accuracy = train(model, device, train_loader, optimizer, epoch)

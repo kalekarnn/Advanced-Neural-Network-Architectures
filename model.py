@@ -45,7 +45,7 @@ class CIFAR10Net(nn.Module):
             nn.Conv2d(84, 84, kernel_size=3, stride=2, padding=1),
             nn.BatchNorm2d(84),
             nn.ReLU(),
-            nn.Dropout(0.03)
+            nn.Dropout(0.1)
         )
         
         # Fourth Block (C4) - RF: 45
@@ -53,7 +53,7 @@ class CIFAR10Net(nn.Module):
             nn.Conv2d(84, 128, kernel_size=3, stride=2, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(),
-            nn.Dropout(0.03)
+            nn.Dropout(0.1)
         )
         
         # Global Average Pooling
