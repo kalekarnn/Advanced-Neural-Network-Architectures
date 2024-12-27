@@ -1,0 +1,9 @@
+torch
+torchsummary
+tqdm
+tabulate
+tensorboard
+torchvision
+albumentations
+numpy
+matplotlib

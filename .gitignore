@@ -1,0 +1,7 @@
+venv/*
+data/*
+runs/*
+sample_images/*
+best_model.pth
+__pycache__/*
+.DS_Store
